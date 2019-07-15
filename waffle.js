@@ -74,6 +74,7 @@ var WaffleChart = function() {
  
      var yellow = "#ffd42b";
      var lightGray = "#f0f3f9";
+     var gray = "#d4d8e1";
  
      var color = d3.scale.linear()
        .domain([1, _obj.data.length - 1])
@@ -134,6 +135,7 @@ var WaffleChart = function() {
      var svg = d3.select(_obj.selector)
        .append("svg")
        .attr("class", "waffle")
+       .attr("class", _obj.label)
        .attr("width", width)
        .attr("height", height)
        .attr("transform", "scale(1, -1), rotate(90)")
@@ -150,6 +152,7 @@ var WaffleChart = function() {
      item.enter()
        .append("rect")
        .attr("class", "unit")
+       .attr("class", _obj.label)
        .attr("width", _obj.size)
        .attr("height", _obj.size)
        .attr("fill", function(d) {
@@ -237,3 +240,38 @@ var WaffleChart = function() {
    return generatedWaffleChart;
  
  };
+ 
+ var sovrn = 82;
+ var general = 42;
+
+ var data = [
+   {"name": "filled impressions", "value": sovrn},
+   {"name": "unfilled impressions", "value": (100-sovrn)}
+]
+
+var data2 = [
+   {"name": "filled impressions", "value": general},
+   {"name": "unfilled impressions", "value": (100-general)}
+]
+
+ var waffle = new WaffleChart()
+   .selector(".chart")
+   .data(data)
+   .useWidth(false)
+   .label("Sovrn //Signal")
+   .size(15)
+   .gap(1)
+   .rows(20)
+   .columns(20)
+   .rounded(false)();
+
+  var waffle2 = new WaffleChart()
+     .selector(".chart2")
+     .data(data2)
+     .useWidth(false)
+     .label("General Audience")
+     .size(15)
+     .gap(1)
+     .rows(20)
+     .columns(20)
+     .rounded(false)();

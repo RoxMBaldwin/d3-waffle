@@ -9,14 +9,19 @@
     font-family: Helvetica, sans serif;
     font-size: 16px;
     color: #333;
+    display: flex;
   }
   .chart {
     margin: 40px;
-    width: 339px;
+    width: 339px; 
+  }
+  .chart2 {
+    margin: 40px;
+    width: 339px; 
   }
   .label {
     font-size: 18px;
-    margin-bottom: 10px;
+    margin: 10px;
     font-weight: bold;
   }
   .legend {
@@ -36,38 +41,19 @@
     height: 10px;
     width: 10px;
   }
+
   </style>
 
 </head>
 
 <body>
 
-  <div class="chart"></div>
+   <div class="chart"></div>
+   <div class="chart2"></div>
 
 
-  <script src="http://d3js.org/d3.v3.min.js"></script>
-  <script src="./waffle.js"></script>
-
-  <script type="text/javascript">
-    d3.csv("./data.csv", function(err, data) {
-      if (err) {
-        console.error(err);
-      } else {
-        var waffle = new WaffleChart()
-          .selector(".chart")
-          .data(data)
-          .useWidth(true)
-          .label("Sovrn //Signal")
-          .size(15)
-          .gap(1)
-          .rows(20)
-          .columns(20)
-          .rounded(false)();
-      }
-    });
-    // source: http://statshb.capp.ca/SHB/Sheet.asp?SectionID=4&SheetID=265
-  </script>
-  
+   <script src="http://d3js.org/d3.v3.min.js"></script>
+   <script src="./waffle.js"></script>
 
 </body>
 
