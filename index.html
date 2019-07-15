@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+
+  <style>
+  body {
+    font-family: Helvetica, sans serif;
+    font-size: 16px;
+    color: #333;
+  }
+  .chart {
+    margin: 40px;
+    width: 339px;
+  }
+  .label {
+    font-size: 18px;
+    margin-bottom: 10px;
+    font-weight: bold;
+  }
+  .legend {
+    padding-bottom: 7px;
+  }
+  .legend_item {
+    display: inline-block;
+    padding-right: 10px;
+    margin-bottom: 2px;
+  }
+  .legend_item_icon, .legend_item_text {
+    display: inline-block;
+    vertical-align: middle;
+  }
+  .legend_item_icon {
+    margin-right: 5px;
+    height: 10px;
+    width: 10px;
+  }
+  </style>
+
+</head>
+
+<body>
+
+  <div class="chart"></div>
+
+
+  <script src="http://d3js.org/d3.v3.min.js"></script>
+  <script src="./waffle.js"></script>
+
+  <script type="text/javascript">
+    d3.csv("./data.csv", function(err, data) {
+      if (err) {
+        console.error(err);
+      } else {
+        var waffle = new WaffleChart()
+          .selector(".chart")
+          .data(data)
+          .useWidth(true)
+          .label("Sovrn //Signal")
+          .size(15)
+          .gap(1)
+          .rows(20)
+          .columns(20)
+          .rounded(false)();
+      }
+    });
+    // source: http://statshb.capp.ca/SHB/Sheet.asp?SectionID=4&SheetID=265
+  </script>
+  
+
+</body>
+
+</html>
