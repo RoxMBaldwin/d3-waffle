@@ -1,6 +1,7 @@
 var WaffleChart = function() {
 
    var $_selector,
+       $_color,
        $_data,
        $_label,
        $_cellSize,
@@ -25,6 +26,7 @@ var WaffleChart = function() {
  
      var obj = {
        selector: $_selector,
+       color: $_color,
        data: $_data,
        label: $_label,
        size: $_cellSize,
@@ -72,14 +74,13 @@ var WaffleChart = function() {
        domain.push(d[$_keys[0]]);
      });
  
-     var yellow = "#ffd42b";
-     var lightGray = "#f0f3f9";
-     var gray = "#d4d8e1";
+     
+     const lightGray = "#f0f3f9";
  
-     var color = d3.scale.linear()
-       .domain([1, _obj.data.length - 1])
-       .interpolate(d3.interpolateRgb)
-       .range(["#555", "#EEE"]);
+   //   var color = d3.scale.linear()
+   //     .domain([1, _obj.data.length - 1])
+   //     .interpolate(d3.interpolateRgb)
+   //     .range(["#555", "#EEE"]);
  
      // add label
  
@@ -157,7 +158,7 @@ var WaffleChart = function() {
        .attr("height", _obj.size)
        .attr("fill", function(d) {
          if (d.groupIndex === 0) {
-           return yellow;
+           return _obj.color;
          } else {
            return lightGray;
          }
@@ -188,6 +189,12 @@ var WaffleChart = function() {
      $_selector = value;
      return generatedWaffleChart;
    }
+
+   generatedWaffleChart.color = function(value){
+      if (!arguments.length) { return lightGray; }
+      $_color = value;
+      return generatedWaffleChart;
+    }
  
    generatedWaffleChart.data = function(value){
      if (!arguments.length) { return $_data; }
@@ -240,22 +247,30 @@ var WaffleChart = function() {
    return generatedWaffleChart;
  
  };
+
+ let signalScore = (0.85);
+ let generalScore = (0.55);
+
  
- var sovrn = 82;
- var general = 42;
+ let sovrn = (signalScore * 400);
+ let general = (generalScore * 400);
 
- var data = [
-   {"name": "filled impressions", "value": sovrn},
-   {"name": "unfilled impressions", "value": (100-sovrn)}
+ const yellow = "#ffd42b";
+ const gray = "#d4d8e1";
+
+ let data = [
+   {"name": "viewability score", "value": sovrn},
+   {"name": "unfilled", "value": (400-sovrn)}
 ]
 
-var data2 = [
-   {"name": "filled impressions", "value": general},
-   {"name": "unfilled impressions", "value": (100-general)}
+let data2 = [
+   {"name": "viewability score", "value": general},
+   {"name": "unfilled", "value": (400-general)}
 ]
 
- var waffle = new WaffleChart()
+let waffle = new WaffleChart()
    .selector(".chart")
+   .color("#ffd42b")
    .data(data)
    .useWidth(false)
    .label("Sovrn //Signal")
@@ -265,13 +280,14 @@ var data2 = [
    .columns(20)
    .rounded(false)();
 
-  var waffle2 = new WaffleChart()
-     .selector(".chart2")
-     .data(data2)
-     .useWidth(false)
-     .label("General Audience")
-     .size(15)
-     .gap(1)
-     .rows(20)
-     .columns(20)
-     .rounded(false)();
+let waffle2 = new WaffleChart()
+   .selector(".chart2")
+   .color("#d4d8e1")
+   .data(data2)
+   .useWidth(false)
+   .label("General Audience")
+   .size(15)
+   .gap(1)
+   .rows(20)
+   .columns(20)
+   .rounded(false)();
