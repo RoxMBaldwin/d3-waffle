@@ -1,5 +1,64 @@
-var WaffleChart = function() {
+function tableTop() {
+  //swap out with live Url when ready
+   var publicSpreadsheetUrl = 'https://docs.google.com/spreadsheets/d/1CCvvhDV6TCd_kn8MzBYTOjoU32LRD72fVlQTO_dnTMk/edit?usp=sharing';
 
+   Tabletop.init( { key: publicSpreadsheetUrl,
+                     callback: showInfo,
+                     simpleSheet: false } )
+
+}
+
+function showInfo(data, tabletop) {
+   let arr = [];
+   let vScoreSovrn = parseInt(data.Sheet1.raw.feed.entry[3].gsx$_cokwr.$t)
+   let vScoreGeneral = parseInt(data.Sheet1.raw.feed.entry[3].gsx$_cpzh4.$t);
+   console.log(vScoreSovrn);
+   console.log(vScoreGeneral);
+      
+   let sovrnData = [
+       {"name": "viewability score", "value": vScoreSovrn},
+       {"name": "unfilled", "value": (100-vScoreSovrn)}
+    ]
+
+    let generalData = [
+      {"name": "viewability score", "value": vScoreGeneral},
+      {"name": "unfilled", "value": (100-vScoreGeneral)}
+    ]
+
+   let sovrnWaffle = new WaffleChart()
+   .selector("#sovrnChart")
+   .color(yellow)
+   .data(sovrnData)
+   .useWidth(false)
+   .label("Sovrn //Signal")
+   .size(16)
+   .gap(1)
+   .rows(20)
+   .columns(20)
+   .rounded(false)();
+
+   let generalWaffle = new WaffleChart()
+   .selector("#generalChart")
+   .color(gray)
+   .data(generalData)
+   .useWidth(false)
+   .label("General Audience")
+   .size(16)
+   .gap(1)
+   .rows(20)
+   .columns(20)
+   .rounded(false)();
+
+   
+};
+
+tableTop();
+
+const yellow = "#ffd42b";
+const gray = "#d4d8e1";
+
+var WaffleChart = function() {
+   
    var $_selector,
        $_color,
        $_data,
@@ -51,7 +110,10 @@ var WaffleChart = function() {
      var formattedData = [];
      var domain = [];
      var value = $_keys[$_keys.length - 1];
-     var total = d3.sum(_obj.data, function(d) { console.log(d[value]); return d[value]; });
+     var total = d3.sum(_obj.data, function(d) { 
+        let rounded = Math.round(d[value]);
+        return d[value]; 
+      });
  
      if ($_useWidth) {
        var forcedWidth = d3.select(_obj.selector).node().getBoundingClientRect().width;
@@ -76,13 +138,6 @@ var WaffleChart = function() {
  
      
      const lightGray = "#f0f3f9";
- 
-   //   var color = d3.scale.linear()
-   //     .domain([1, _obj.data.length - 1])
-   //     .interpolate(d3.interpolateRgb)
-   //     .range(["#555", "#EEE"]);
- 
-     // add label
  
      if (_obj.label) {
        d3.select(_obj.selector)
@@ -153,7 +208,6 @@ var WaffleChart = function() {
      item.enter()
        .append("rect")
        .attr("class", "unit")
-       .attr("class", _obj.label)
        .attr("width", _obj.size)
        .attr("height", _obj.size)
        .attr("fill", function(d) {
@@ -247,47 +301,3 @@ var WaffleChart = function() {
    return generatedWaffleChart;
  
  };
-
- let signalScore = (0.85);
- let generalScore = (0.55);
-
- 
- let sovrn = (signalScore * 400);
- let general = (generalScore * 400);
-
- const yellow = "#ffd42b";
- const gray = "#d4d8e1";
-
- let data = [
-   {"name": "viewability score", "value": sovrn},
-   {"name": "unfilled", "value": (400-sovrn)}
-]
-
-let data2 = [
-   {"name": "viewability score", "value": general},
-   {"name": "unfilled", "value": (400-general)}
-]
-
-let waffle = new WaffleChart()
-   .selector(".chart")
-   .color("#ffd42b")
-   .data(data)
-   .useWidth(false)
-   .label("Sovrn //Signal")
-   .size(15)
-   .gap(1)
-   .rows(20)
-   .columns(20)
-   .rounded(false)();
-
-let waffle2 = new WaffleChart()
-   .selector(".chart2")
-   .color("#d4d8e1")
-   .data(data2)
-   .useWidth(false)
-   .label("General Audience")
-   .size(15)
-   .gap(1)
-   .rows(20)
-   .columns(20)
-   .rounded(false)();
