@@ -10,8 +10,8 @@ body {
   height: 339px; */
 }
 .label {
-  font-size: 16px;
-  margin: 10px;
+  font-size: 18px;
+  margin: 0px 10px 10px 10px;
   font-weight: bold;
   text-align: center;
   color: #282828;
@@ -33,4 +33,19 @@ body {
   margin-right: 5px;
   height: 10px;
   width: 10px;
+}
+p.scoreTag {
+   /* font-family: CircularStd-Medium; */
+   font-size: 80px;
+   font-weight: 500;
+   /* height: 101px; */
+   letter-spacing: -2px;
+   text-align: center;
+   margin: 55px 10px 0px 10px;
+}
+#sovrnScore {
+   color:  #ffd42b;
+}
+#generalScore {
+   color: #a5adbe;
 }

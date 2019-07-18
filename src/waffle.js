@@ -9,20 +9,29 @@ function tableTop() {
 }
 
 function showInfo(data, tabletop) {
-   let arr = [];
-   let vScoreSovrn = parseInt(data.Sheet1.raw.feed.entry[3].gsx$_cokwr.$t)
-   let vScoreGeneral = parseInt(data.Sheet1.raw.feed.entry[3].gsx$_cpzh4.$t);
-   console.log(vScoreSovrn);
-   console.log(vScoreGeneral);
+  
+   let vScoreSovrn = data.Sheet1.raw.feed.entry[3].gsx$_cokwr.$t
+   let vScoreGeneral = data.Sheet1.raw.feed.entry[3].gsx$_cpzh4.$t;
+   let generalPercent = document.getElementById('generalScore');
+   let sovrnPercent = document.getElementById('sovrnScore');
+   let sovrnScoreParsed = parseInt(vScoreSovrn);
+   let generalScoreParsed = parseInt(vScoreGeneral);
+
+   generalPercent.innerHTML = `
+   <p class="scoreTag">${vScoreGeneral}</p>
+  `
+   sovrnPercent.innerHTML = `
+    <p class="scoreTag">${vScoreSovrn}</p>
+   `
       
    let sovrnData = [
-       {"name": "viewability score", "value": vScoreSovrn},
-       {"name": "unfilled", "value": (100-vScoreSovrn)}
+       {"name": "viewability score", "value": sovrnScoreParsed},
+       {"name": "unfilled", "value": (100-sovrnScoreParsed)}
     ]
 
     let generalData = [
-      {"name": "viewability score", "value": vScoreGeneral},
-      {"name": "unfilled", "value": (100-vScoreGeneral)}
+      {"name": "viewability score", "value": generalScoreParsed},
+      {"name": "unfilled", "value": (100-generalScoreParsed)}
     ]
 
    let sovrnWaffle = new WaffleChart()
